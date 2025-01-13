@@ -1,14 +1,32 @@
+version: '3.8'
+
 services:
   stats-server:
     ports:
       - "9090:9090"
+    build:
+      context: ./stats/stats-service
 
   stats-db:
     image: postgres:16.1
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: stats_db
+    ports:
+      - "5432:5432"
 
   ewm-service:
     ports:
       - "8080:8080"
+    build:
+      context: ./main-service
 
   ewm-db:
     image: postgres:16.1
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ewm_db
+    ports:
+      - "5432:5432"

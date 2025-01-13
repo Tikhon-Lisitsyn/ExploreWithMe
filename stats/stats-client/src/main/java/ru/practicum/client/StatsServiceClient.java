@@ -1,6 +1,5 @@
 package ru.practicum.client;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -9,10 +8,13 @@ import ru.practicum.HitRequest;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class StatsServiceClient {
 
     private final RestTemplate restTemplate;
+
+    public StatsServiceClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public void sendHitInfo(String serviceName, String uri, String ip) {
         String url = "http://localhost:9090/hit";

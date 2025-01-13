@@ -1,6 +1,5 @@
 package ru.practicum.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.EndpointHit;
 import ru.practicum.client.StatsServiceClient;
@@ -8,9 +7,12 @@ import ru.practicum.client.StatsServiceClient;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 public class StatsClientController {
     private final StatsServiceClient statsServiceClient;
+
+    public StatsClientController(StatsServiceClient statsServiceClient) {
+        this.statsServiceClient = statsServiceClient;
+    }
 
     @PostMapping("/hit")
     public void saveHit(@RequestBody EndpointHit endpointHit) {
@@ -23,6 +25,4 @@ public class StatsClientController {
                            @RequestParam(required = false) List<String> uris) {
         return statsServiceClient.getStats(start, end, uris);
     }
-
-
 }
